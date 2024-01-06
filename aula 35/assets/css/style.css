@@ -1,0 +1,19 @@
+body{
+  background-color: rgb(2, 23, 48);
+  padding: 0px;
+  margin: 0px;
+}
+
+.contain{
+  background-color: rgb(29, 53, 99);
+  margin: auto;
+  width: 250px;
+  height: 150px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+p,div,footer,section{
+  color: white;
+  font-size: 25px;
+}
