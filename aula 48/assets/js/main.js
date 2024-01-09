@@ -1,101 +1,81 @@
-const form = document.querySelector("#formulario")
+const inputTarefa = document.querySelector('.input-nova-tarefa');
+const btnTarefa = document.querySelector('.btn-add-tarefa');
+const tarefas = document.querySelector('.tarefas');
+ 
 
-form.addEventListener('submit', function(event){ 
-
-    event.preventDefault();
-
-    const inputPeso = event.target.querySelector("#peso");
-    const inputAltura = event.target.querySelector("#altura");
+function criaLi(){
+    const li = document.createElement('li');
+    return li;
     
-    const peso = Number(inputPeso.value);
-    const altura = Number(inputAltura.value);
+}
 
-    if (!peso && !altura) {
+inputTarefa.addEventListener('keypress', function(e){
+    if (e.keyCode === 13){
+        if(!inputTarefa.value) return;
+        criaTarefa(inputTarefa.value);
+        }
+})
 
-        enviarResultadoParaDiv ('peso e altura estão invalidos', false);
-        return;
-    }
+function criaTarefa(textoInput){
+    const li = criaLi();
+    li.innerHTML = textoInput
+    tarefas.appendChild(li);
+    limpaInput()
+    criaBotaoApagar(li)
+    salvarTarefa()
+}
 
-    if (!peso) {
 
-        enviarResultadoParaDiv ('peso invalido', false);
-        return;
-    }
-
-    if (!altura) {
-
-        enviarResultadoParaDiv ('altura invalida', false);
-        return;
-    }
-
-    const Imc = getimc(peso, altura);
-    const nivelimc = getNivelImc(Imc)
-
-    const msg = `seu imc é ${Imc} (${nivelimc})`
-
-    enviarResultadoParaDiv(msg, true)
+btnTarefa.addEventListener('click', function(){
+    if(!inputTarefa.value) return;
+    criaTarefa(inputTarefa.value);
 
 });
 
-function getimc (peso, altura){
-    const imc = peso / altura ** 2;
-    return imc
+function limpaInput(){
+    inputTarefa.value = ''
+    inputTarefa.focus()
 }
 
-function getNivelImc(Imc){
-    const nivel = []; 
-
-    nivel[0] = 'abaixo do peso'
-    nivel[1] = 'peso normal'
-    nivel[2] = 'sobrepeso'
-    nivel[3] = 'obsidade grau 1'
-    nivel[4] = 'obsidade grau 2'
-    nivel[5] = 'obsidade grau 3'
-
-    if (Imc >= 39.9){
-         return nivel[5]
-    };
-    if (Imc >= 34.9){
-        return nivel[4]
-    };
-    if (Imc >= 29.9){
-        return nivel[3]
-    };
-    if (Imc >= 24.9){
-        return nivel[2]
-    };
-    if (Imc >= 18.5){
-        return nivel[1]
-    };
-    if (Imc < 18.5) {
-        return nivel[0]
-    };
-
+function criaBotaoApagar(li){
+    li.innerHTML += ' '
+    const botaoApagar = document.createElement('button')
+    botaoApagar.innerText = 'Apagar'
+    botaoApagar.setAttribute('class', 'apagar')
+    li.appendChild(botaoApagar)
 }
 
-function criarParagrafos(){
-        // aqui para baixo vai criar um p para adicionar o resultado na div
+document.addEventListener('click', function(e){
+    const el = e.target
 
-    // vai adicionar um paragrafo(<p>) no html
-    const p = document.createElement('p');
-
-    return p;
-}
-
-function enviarResultadoParaDiv (msg, isvalid){
-
-    let resultado = document.querySelector("#resultado");
-    resultado.innerHTML = '';
-
-
-    const p = criarParagrafos();
-
-    if(isvalid) {
-        p.classList.add('paragrafo-resultado')
-    }else{
-        p.classList.add('bad')
+    if (el.classList.contains('apagar')){
+        el.parentElement.remove()
     }
+    salvarTarefa()
 
-    p.innerHTML = msg;
-    resultado.appendChild(p);
+
+});
+
+function salvarTarefa(){
+    const liTarefas = tarefas.querySelectorAll('li')
+    const listaDeTarefas = []
+
+    for (let tarefa of liTarefas){
+        let tarefaTexto = tarefa.innerText;
+        tarefaTexto = tarefaTexto.replace('Apagar', '').trim();
+        listaDeTarefas.push(tarefaTexto)
+    }
+    const tarefasJSON = JSON.stringify(listaDeTarefas)
+    localStorage.setItem('tarefas', tarefasJSON)
 }
+
+function adiconaTarefasSalvas(){
+    const tarefas = localStorage.getItem('tarefas')
+    const listaDeTarefas = JSON.parse(tarefas)
+
+    for(let tarefa of listaDeTarefas){
+        criaTarefa(tarefa)
+    }
+}
+adiconaTarefasSalvas()
+
