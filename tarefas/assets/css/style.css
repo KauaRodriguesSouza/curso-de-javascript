@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
 :root {
   --primary-color: #09101D;
-  --secund-color: #2D4B74;
+  --secund-color: #19223D;
 }
 
 * {
@@ -14,7 +14,6 @@ body {
   padding: 0;
   background: var(--primary-color);
   font-family: 'Open sans', sans-serif;
-  font-size: 1.3em;
   line-height: 1.5em;
 }
 
@@ -27,43 +26,45 @@ body {
   border-radius: 10px;
 }
 
-form input, form label, form button {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
+li{
+  font-size: 1.5em;
+
 }
 
-form input {
-  font-size: 24px;
-  height: 50px;
-  padding: 0 20px;
+.apagar{
+  font-size: 0.7em;
+  color: white;
+  background-color: rgb(227, 68, 68);
+  border-radius: 6px;
+  line-height: 1.5em;
 }
 
-form input:focus {
-  outline: 1px solid var(--primary-color);
+.input-nova-tarefa{
+  width: 300px;
+  height: 30px;
+  font-size: 1.3em;
+  border-radius: 8px;
 }
 
-form button {
-  border: none;
-  background: var(--primary-color);
-  color: #fff;
+.btn-add-tarefa{
+  background-color: #274980;
+  color: white;
+  height: 31px;
+  border-radius: 8px;
   font-size: 18px;
   font-weight: 700;
-  height: 50px;
-  cursor: pointer;
-  margin-top: 30px;
+  border: none;
+} 
+.btn-add-tarefa:hover{
+  background-color: #3c57a2;
+  transform: translate(0.7px, 0.7px);
+  transition: background-color 190ms;
 }
 
-form button:hover {
-  background: var(--primary-color);
-}
 
-.paragrafo-resultado{
-  background-color: rgb(83, 216, 101);
-  padding: 10px 20px ;
-}
 
-.bad{
-  background-color: rgba(201, 62, 62, 0.993);
-  padding: 10px 20px ;
-}
+
+
+
+
+

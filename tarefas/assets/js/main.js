@@ -34,7 +34,6 @@ btnTarefa.addEventListener('click', function(){
 
 function limpaInput(){
     inputTarefa.value = ''
-    inputTarefa.focus()
 }
 
 function criaBotaoApagar(li){
