@@ -58,12 +58,19 @@ form button:hover {
   background: var(--primary-color);
 }
 
-.paragrafo-resultado{
-  background-color: rgb(83, 216, 101);
-  padding: 10px 20px ;
+.relogio{
+  font-size: 70px;
 }
 
-.bad{
-  background-color: rgba(201, 62, 62, 0.993);
-  padding: 10px 20px ;
+button{
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #09101D;
+  color: white;
+}
+
+.pausado{
+  color: red;
+
 }

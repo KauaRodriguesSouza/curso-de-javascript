@@ -1,24 +1,27 @@
-// console.log('olá mundo')
 
-// // setTimeout excuta uma unica vez quando voce pede
+
+// setTimeout excuta uma unica vez quando voce pede
 // setTimeout(function(){
 //     console.log('teste')
 // }, 2000)
 
 
-// // setInterval executa a cada tempo que voce mandar sem parar  
-// setInterval(function (){ 
+// setInterval executa a cada tempo que voce mandar sem parar  
 
-//     console.log('a cada 2 segundos voce vai ver')
+function mostraHora(){
+    let data = new Date()
 
-// }, 2000) 
+    return data.toLocaleTimeString('pt-BR',{
+        hour12: false
 
-    function soma(){
-        for (let i = 0; i <= 10; i++){
-            return console.log(i) 
-        }
-    }
+    })
 
-let mytime = setInterval(function (){
-    soma()
-})
+}
+
+const timer = setInterval(function(){
+    console.log(mostraHora())
+}, 1000)
+
+setTimeout(function(){
+    clearInterval(timer)
+}, 6000)
