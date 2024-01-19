@@ -1,101 +1,75 @@
-const form = document.querySelector("#formulario")
+function criaCalculadora(){
+    return{
+        
+        display: document.querySelector('.display'),
 
-form.addEventListener('submit', function(event){ 
+        inicia(){
 
-    event.preventDefault();
+            this.cliqueBotoes();
 
-    const inputPeso = event.target.querySelector("#peso");
-    const inputAltura = event.target.querySelector("#altura");
+        },
+
+        realizaConta(){
+
+            let soma = this.display.value
+            
+            try {
+                soma = eval(soma);
+
+                if (!soma){
+                    alert('conta invalida');
+                    return;
+                }
+
+                this.display.value = String(soma)
+            } catch (e) {
+                alert('conta invalida');
+                return this.display.value = '';
+            }
+        },
+
+        clear(){
+            this.display.value = '';
+        },
+
+        apagarUltimo(){
+            this.display.value = this.display.value.slice(0, -1);
+        },
+
+        cliqueBotoes() {
+            document.addEventListener('click', e =>{
+                const el = e.target;
+
+                if(el.classList.contains('btn-num')){
+                this.btnParaDisplay(el.innerText);
+
+                }
+
+                if(el.classList.contains('btn-clear')){
+
+                    this.clear();
+                }
+
+                if(el.classList.contains('btn-del')){
+
+                    this.apagarUltimo();
     
-    const peso = Number(inputPeso.value);
-    const altura = Number(inputAltura.value);
+                }
 
-    if (!peso && !altura) {
+                if(el.classList.contains('btn-eq')){
 
-        enviarResultadoParaDiv ('peso e altura estão invalidos', false);
-        return;
-    }
+                    this.realizaConta();
+    
+                }
+            });
+        },
 
-    if (!peso) {
+        btnParaDisplay(valor){ 
+            this.display.value += valor;
+        }
 
-        enviarResultadoParaDiv ('peso invalido', false);
-        return;
-    }
-
-    if (!altura) {
-
-        enviarResultadoParaDiv ('altura invalida', false);
-        return;
-    }
-
-    const Imc = getimc(peso, altura);
-    const nivelimc = getNivelImc(Imc)
-
-    const msg = `seu imc é ${Imc} (${nivelimc})`
-
-    enviarResultadoParaDiv(msg, true)
-
-});
-
-function getimc (peso, altura){
-    const imc = peso / altura ** 2;
-    return imc
+    };
 }
 
-function getNivelImc(Imc){
-    const nivel = []; 
-
-    nivel[0] = 'abaixo do peso'
-    nivel[1] = 'peso normal'
-    nivel[2] = 'sobrepeso'
-    nivel[3] = 'obsidade grau 1'
-    nivel[4] = 'obsidade grau 2'
-    nivel[5] = 'obsidade grau 3'
-
-    if (Imc >= 39.9){
-         return nivel[5]
-    };
-    if (Imc >= 34.9){
-        return nivel[4]
-    };
-    if (Imc >= 29.9){
-        return nivel[3]
-    };
-    if (Imc >= 24.9){
-        return nivel[2]
-    };
-    if (Imc >= 18.5){
-        return nivel[1]
-    };
-    if (Imc < 18.5) {
-        return nivel[0]
-    };
-
-}
-
-function criarParagrafos(){
-        // aqui para baixo vai criar um p para adicionar o resultado na div
-
-    // vai adicionar um paragrafo(<p>) no html
-    const p = document.createElement('p');
-
-    return p;
-}
-
-function enviarResultadoParaDiv (msg, isvalid){
-
-    let resultado = document.querySelector("#resultado");
-    resultado.innerHTML = '';
-
-
-    const p = criarParagrafos();
-
-    if(isvalid) {
-        p.classList.add('paragrafo-resultado')
-    }else{
-        p.classList.add('bad')
-    }
-
-    p.innerHTML = msg;
-    resultado.appendChild(p);
-}
+const calculadora = criaCalculadora()
+calculadora.inicia()
