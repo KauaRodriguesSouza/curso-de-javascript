@@ -96,6 +96,7 @@ function Calculadora() {
 
     }
 
+    
     this.realizaConta = function (){
     try {
 
